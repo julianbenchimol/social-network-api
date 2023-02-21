@@ -1,7 +1,6 @@
-const {Schema, model} = require ('mongoose');
-const thoughtSchema = require('./Thought');
+const mongoose = require('mongoose')
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
     {
         username: {
             type: String,
@@ -14,8 +13,6 @@ const userSchema = new Schema(
             match: /.+\@.+\..+/,
             unique: true
         },
-        friends: [userSchema],
-        thoughts: [thoughtSchema]
     },
     {
         toJSON: {
@@ -29,5 +26,5 @@ userSchema.virtual('friendCount').get(function(){
     return this.friends.length;
 })
 
-const User = model('user', userSchema);
+const User = mongoose.model('user', userSchema);
 module.exports = User;
