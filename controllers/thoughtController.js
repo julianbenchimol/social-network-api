@@ -1,5 +1,5 @@
 const {ObjectId} = require('mongoose').Types
-const {Thought} = require('../models/Thought');
+const Thought = require('../models/Thought');
 const {Reaction} = require('../models/Reaction');
 
 module.exports = {
