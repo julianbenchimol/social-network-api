@@ -37,7 +37,7 @@ module.exports = {
     updateUser(req, res){
         User.findOneAndUpdate(
             {_id: req.params.userId},
-            {$seet: req.body},
+            {$set: req.body},
             {runValidators: true, new: true}
         )
         .then((user) =>
@@ -48,10 +48,15 @@ module.exports = {
         .catch((err)=> res.status(500).json(err))
     },
     deleteUser(req, res){
-        User.findOneAndDelete({_id: req.params.userId})
-        .then((user)=>{
-            res.json({message:'User Deleted'})
+        User.findOneAndDelete({_id: req.params.userId},
+        (err, result) => {
+
+            if(result){
+                res.status(200).json(result)
+            }
+            else {
+                res.status(500).json({message: "Something went wrong"})
+            }
         })
-        .catch((err)=> res.status(500).json(err))
     }
 };
